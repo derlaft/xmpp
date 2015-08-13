@@ -408,7 +408,7 @@ func Dial(address, user, domain, password, resource string, config *Config) (c *
 	if config != nil && config.SkipTLS {
 		tlsConn = tls.Client(conn, &tls.Config{InsecureSkipVerify: true})
 	} else {
-		tlsConn = tls.Client(conn, nil)
+		tlsConn = tls.Client(conn, &tls.Config{ServerName: domain})
 	}
 	if err := tlsConn.Handshake(); err != nil {
 		return nil, err
